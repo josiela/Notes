@@ -1,4 +1,4 @@
-# QuickNotes
+# Notes App
 
 Notiz-App mit Vue 3, TypeScript, Vite und Tailwind CSS. Notizen können angelegt, durchsucht (Titel, Inhalt, Tags) und gelöscht werden und bleiben über `localStorage` nach einem Reload erhalten.
 
