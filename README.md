@@ -50,7 +50,7 @@ Die Notiz-Logik liegt in `useNotes`, damit die Komponenten nur für die Darstell
 ## 3. Reflexionsfragen
 
 **Warum darf NoteCard die Notiz-Prop nicht selbst verändern, und wie lösen wir das stattdessen?**
-Props fließen nur von oben nach unten und dürfen nur im Parent verändert werden. Würde das Kind die Daten der Elternkomponente direkt ändern, wäre nicht mehr nachvollziehbar, wer den State verändert. Außerdem überschreiben die Eltern-Props die Child-Änderungen möglicherweise. NoteCard emittet deshalb nur ein Event (`delete` mit der `id`), App.vue reagiert darauf und ruft `deleteNote()` aus `useNotes` auf. Dasselbe Muster nutzt NoteForm mit `addNote`.
+Props fließen nur von oben nach unten und dürfen nur im Parent verändert werden. Würde das Kind die Daten der Elternkomponente direkt ändern, wäre nicht mehr nachvollziehbar, wer den State verändert. Außerdem überschreiben die Eltern-Props die Child-Änderungen beim nächsten Rendern. NoteCard emittet deshalb nur ein Event (`delete` mit der `id`), App.vue reagiert darauf und ruft `deleteNote()` aus `useNotes` auf. Dasselbe Muster nutzt NoteForm mit `addNote`.
 
 **Was passiert, wenn zwei Komponenten dasselbe `useNotes()` aufrufen – teilen sie sich die Notizen oder nicht?**
 Nein, nicht reaktiv. `notes` wird innerhalb der Funktion `useNotes()` erzeugt, also bekommt jeder Aufruf seinen eigenen `ref`. Beide lesen beim Start denselben `localStorage`-Key und haben dadurch anfangs die gleichen Daten. Eine Änderung in der einen Instanz erscheint aber nicht sofort in der anderen, und die zuletzt speichernde Instanz überschreibt die andere. In meiner App ruft nur `App.vue` `useNotes()` auf, deshalb tritt das Problem hier nicht auf.
