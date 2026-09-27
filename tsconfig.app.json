@@ -4,6 +4,8 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "types": ["vite/client"],
     "allowArbitraryExtensions": true,
+    // Erlaubt den Import der .js-Composables in .vue/.ts-Dateien (Typen kommen aus deren JSDoc)
+    "allowJs": true,
 
     /* Linting */
     "noUnusedLocals": true,

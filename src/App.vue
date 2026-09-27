@@ -1,32 +1,19 @@
 <script setup lang="ts">
 import SearchBar from "./components/SearchBar.vue";
 import NoteForm from "./components/NoteForm.vue";
-import {computed, ref} from "vue";
-import type {Note} from "./types/note.ts";
+import {ref} from "vue";
 import NoteCard from "./components/NoteCard.vue";
+// Notiz-Logik kommt aus dem Composable statt aus der Komponente selbst
+import {useNotes} from "./composables/useNotes.js";
 
-const notes = ref<Note[]>([]);
+// App.vue verwaltet die Liste nicht selbst, sondern nutzt nur die Funktionen aus useNotes
+const { notes, addNote, deleteNote, filteredNotes: getFilteredNotes } = useNotes();
+
+// Der Suchbegriff ist reiner UI-State der Suchleiste und bleibt deshalb in der Komponente
 const searchTerm = ref<string>("");
 
-// Wird automatisch neu berechnet, sobald sich notes oder searchTerm ändern
-const filteredNotes = computed<Note[]>(() => {
-  const term = searchTerm.value.trim().toLowerCase();
-  if (!term) return notes.value;
-
-  return notes.value.filter(note =>
-    note.title.toLowerCase().includes(term) ||
-    note.content.toLowerCase().includes(term) ||
-    note.tags.some(tag => tag.toLowerCase().includes(term))
-  );
-});
-
-function addNote( note: Note ): void {
-  notes.value.push(note);
-}
-
-function deleteNote( id: number ): void {
-  notes.value = notes.value.filter(note => note.id !== id);
-}
+// Gefilterte Ansicht aus useNotes; bekommt das ref übergeben und aktualisiert sich beim Tippen
+const filteredNotes = getFilteredNotes(searchTerm);
 </script>
 
 <template>

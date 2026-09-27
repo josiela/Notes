@@ -1,0 +1,20 @@
+### Prompt: Wie bastel ich aus mehreren Input-Values ein Objekt zusammen, sodass ich dieses
+Objekt, dass sich nach einem types interface richtet, an eine Funktion "addNode" emitten kann?
+Übernommen: submitNote()-Logik aus NoteForm.vue
+Verstanden: wie Objekte in emit Logik funktionieren
+
+### Prompt: Wie kann ich modelValue und update:modelValue per v-model einbinden?
+Übernommen: SearchBar.vue mit defineProps/defineEmits, :value + @input; v-model="searchTerm" in App.vue
+Verstanden: v-model auf Komponenten = Prop modelValue + Event update:modelValue; Props sind readonly
+
+### Prompt: Erstelle eine beispielhafte Suchfunktion als Grundkonzept
+Übernommen: filteredNotes als computed (Titel, Inhalt, Tags), deleteNote() an NoteCard angebunden, Hinweis bei leerem Suchergebnis
+Verstanden: computed für abgeleitete Daten statt zweitem State; eine Datenquelle (notes), gefilterte Ansicht darauf
+
+### Prompt: Wie handelt man State Management, sodass Notizen nach Reload erhalten bleiben? Erstelle einen Prototypen nach best practices.
+Übernommen: useNotes.js (addNote, deleteNote, filteredNotes), useLocalStorage.js mit try/catch, App.vue nutzt nur noch useNotes, allowJs in tsconfig.app.json
+Verstanden: Composables kapseln Logik; watch mit deep: true speichert automatisch; eindeutige ids statt nur Date.now()
+
+### Prompt: Erstelle ein generelles Template für useLocalStorage.js mit Beschreibung der einzelnen Teile.
+Übernommen: Struktur von useLocalStorage.js
+Verstanden: Die generelle Logik: Aufbau Laden → ref → watch/speichern → return; JSON.parse/stringify, Fehlerbehandlung, optionaler Tab-Sync über storage-Event
